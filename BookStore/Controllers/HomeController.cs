@@ -11,7 +11,7 @@ namespace BookStore.Controllers
     {
         public ViewResult Index()
         {
-            return View("Index");
+            return View();
         }
 
         public ViewResult Aboutus()
