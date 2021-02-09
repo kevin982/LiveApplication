@@ -9,14 +9,14 @@ namespace BookStore.Controllers
 {
     public class HomeController:Controller
     {
-        public string Index()
+        public ViewResult Index()
         {
-            return "Hi I am in the index";
+            return View("Index");
         }
 
-        public string Saludar()
+        public ViewResult Aboutus()
         {
-            return "Hola estoy saludando";
+            return View();
         }
     }
 }
