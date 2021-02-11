@@ -5,6 +5,7 @@
     
     <meta name="viewport" content="width=device-width" />
     <title>@ViewData["Title"] | Book Store Application</title>
+    
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Css/Site.css" rel="stylesheet" />
 
@@ -36,16 +37,19 @@
 
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/home/aboutus">About</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="AboutUs" >About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/home/contactus">Contact</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="ContactUs">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/book/getallbooks">All books</a>
+                            <a class="nav-link text-dark" asp-controller="Book" asp-action="GetAllBooks">All books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Book" asp-action="AddNewBook">Add a new book</a>
                         </li>
                     </ul>
 

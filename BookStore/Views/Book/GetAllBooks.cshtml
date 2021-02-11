@@ -2,9 +2,7 @@
     ViewData["Title"] = "All Books";
 }
 
-@using BookStore.Models;
-
-@model IEnumerable<BookModel>
+ 
  
 <div class="container">
     <h3 class="display-4">All books</h3>
@@ -21,7 +19,7 @@
                             <p class="card-text">@book.Description</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="/book/getbook/@book.Id" class="brn btn-sm btn-outline-secondary">View Details</a>
+                                    <a asp-controller="Book" asp-action="GetBook" asp-route-Id=@book.Id class="brn btn-sm btn-outline-secondary">View Details</a>
                                 </div>
                                 <small class="text-muted">@book.Author</small>
                             </div>
