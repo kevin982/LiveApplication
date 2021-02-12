@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookStore.Repository;
 using BookStore.Models;
+using BookStore.Data.Entities;
 
 namespace BookStore.Controllers
 {
@@ -14,20 +15,21 @@ namespace BookStore.Controllers
 
         private readonly BookRepository _bookRepository = null;
 
-        public BookController()
+        public BookController(BookRepository bookRepository)
         {
-            _bookRepository = new BookRepository();
+            _bookRepository = bookRepository;
         }
-        public ViewResult GetAllBooks()
+        public async Task<ViewResult> GetAllBooks()
         {
-            var data=_bookRepository.GetAllBooks();
+
+            var data = await _bookRepository.GetAllBooks();
 
             return View(data);
         }
 
-        public ViewResult GetBook(int id)
+        public async Task<ViewResult> GetBook(int id)
         {
-            var data= _bookRepository.GetBookById(id);
+            var data= await _bookRepository.GetBookById(id);
             return View(data);
         }
 
@@ -42,8 +44,10 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        public ViewResult AddNewBook(BookModel bookModel)
+        public async Task<ViewResult> AddNewBook(BookModel bookModel)
         {
+            await _bookRepository.AddNewBook(bookModel);
+            
             return View();
         }
 
