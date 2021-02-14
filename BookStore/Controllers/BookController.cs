@@ -33,20 +33,24 @@ namespace BookStore.Controllers
             return View(data);
         }
 
-        public List<BookModel> SearchBooks(string bookName, string authorName)
-        {
-            return _bookRepository.SearchBook(bookName, authorName);
-        }
-
         public ViewResult AddNewBook()
         {
+            ViewBag.Languages = new string[] { "English", "Spanish", "French" };
+
             return View();
         }
 
         [HttpPost]
         public async Task<ViewResult> AddNewBook(BookModel bookModel)
         {
-            await _bookRepository.AddNewBook(bookModel);
+
+            ViewBag.Languages = new string[] { "English", "Spanish", "French" };
+
+            if (ModelState.IsValid)
+            {
+                await _bookRepository.AddNewBook(bookModel);
+            }
+
             
             return View();
         }
