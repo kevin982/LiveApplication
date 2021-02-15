@@ -21,7 +21,9 @@ namespace BookStore.Data.Entities
 
         public string Description { get; set; } = string.Empty;
 
-        public string Language { get; set; } = string.Empty;
+        public int LanguageId { get; set; }
+
+        public Language Language { get; set; }
 
         public string Category { get; set; } = string.Empty;
     }

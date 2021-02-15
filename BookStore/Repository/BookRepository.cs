@@ -20,7 +20,7 @@ namespace BookStore.Repository
 
         public async Task<int> AddNewBook(BookModel bookModel)
         {
-            Book book = new() {Author = bookModel.Author, Category = bookModel.Category, Description = bookModel.Description, Language = bookModel.Language, Pages = bookModel.Pages, Title = bookModel.Title, CreatedOn=DateTime.UtcNow, UpddatedOn=DateTime.UtcNow };
+            Book book = new() { Author = bookModel.Author, Category = bookModel.Category, Description = bookModel.Description, Pages = bookModel.Pages, Title = bookModel.Title, CreatedOn = DateTime.UtcNow, UpddatedOn = DateTime.UtcNow };
 
             using (context)
             {
