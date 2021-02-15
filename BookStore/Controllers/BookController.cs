@@ -14,10 +14,12 @@ namespace BookStore.Controllers
     {
 
         private readonly BookRepository _bookRepository = null;
+        private readonly LanguageRepository _languageRepository = null;
 
-        public BookController(BookRepository bookRepository)
+        public BookController(BookRepository bookRepository, LanguageRepository languageRepository)
         {
             _bookRepository = bookRepository;
+            _languageRepository = languageRepository;
         }
         public async Task<ViewResult> GetAllBooks()
         {
@@ -33,9 +35,9 @@ namespace BookStore.Controllers
             return View(data);
         }
 
-        public ViewResult AddNewBook()
+        public async Task<ViewResult> AddNewBook()
         {
-            ViewBag.Languages = new string[] { "English", "Spanish", "French" };
+            ViewBag.Languages = await _languageRepository.GetAllLanguages();
 
             return View();
         }
@@ -44,13 +46,12 @@ namespace BookStore.Controllers
         public async Task<ViewResult> AddNewBook(BookModel bookModel)
         {
 
-            ViewBag.Languages = new string[] { "English", "Spanish", "French" };
+            ViewBag.Languages = await _languageRepository.GetAllLanguages();
 
             if (ModelState.IsValid)
             {
                 await _bookRepository.AddNewBook(bookModel);
             }
-
             
             return View();
         }

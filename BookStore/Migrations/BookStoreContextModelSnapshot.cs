@@ -72,7 +72,7 @@ namespace BookStore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("BookStore.Data.Entities.Book", b =>

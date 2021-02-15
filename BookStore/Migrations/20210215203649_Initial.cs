@@ -8,7 +8,7 @@ namespace BookStore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Language",
+                name: "Languages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -18,7 +18,7 @@ namespace BookStore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Language", x => x.Id);
+                    table.PrimaryKey("PK_Languages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,9 +40,9 @@ namespace BookStore.Migrations
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Books_Language_LanguageId",
+                        name: "FK_Books_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -59,7 +59,7 @@ namespace BookStore.Migrations
                 name: "Books");
 
             migrationBuilder.DropTable(
-                name: "Language");
+                name: "Languages");
         }
     }
 }

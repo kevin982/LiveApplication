@@ -22,11 +22,8 @@ namespace BookStore.Repository
         {
             Book book = new() { Author = bookModel.Author, Category = bookModel.Category, Description = bookModel.Description, Pages = bookModel.Pages, Title = bookModel.Title, CreatedOn = DateTime.UtcNow, UpddatedOn = DateTime.UtcNow };
 
-            using (context)
-            {
-                await context.AddAsync(book);
-                await context.SaveChangesAsync();
-            };
+            await context.AddAsync(book);
+            await context.SaveChangesAsync();
 
             return book.Id;
         }
@@ -34,12 +31,9 @@ namespace BookStore.Repository
 
         public async Task<List<Book>> GetAllBooks()
         {
-            List<Book> result=new();
+            List<Book> result = new();
 
-            using(context)
-            {
-                result = await context.Books.AsNoTracking().ToListAsync();   
-            };
+            result = await context.Books.AsNoTracking().ToListAsync();
 
             return result;
         }
@@ -48,15 +42,12 @@ namespace BookStore.Repository
         {
             Book result;
 
-            using (context)
-            {
-                result = await context.Books.AsNoTracking().FirstAsync(book => book.Id==id);
-            };
+            result = await context.Books.AsNoTracking().FirstAsync(book => book.Id == id);
 
             return result;
 
         }
- 
- 
+
+
     }
 }

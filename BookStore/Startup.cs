@@ -31,6 +31,7 @@ namespace BookStore
 #endif
 
             services.AddScoped<BookRepository, BookRepository>();
+            services.AddScoped<LanguageRepository, LanguageRepository>();
         
         }
 

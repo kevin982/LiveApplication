@@ -9,7 +9,7 @@ namespace BookStore.Models
         public int Id { get; set; }
         
         
-        [Required(ErrorMessage = "Tiene que llenar la descripcion."), MaxLength(20)]
+        [Required(ErrorMessage = "Tiene que llenar la descripcion."), MaxLength(50)]
         public string Description { get; set; }
         
         [Required, Range(100,1000)]
@@ -19,21 +19,18 @@ namespace BookStore.Models
 
         public DateTime UpdatedOn { get; set; }
 
-        [Required, MaxLength(20), MinLength(3)]
+        [Required, MaxLength(50), MinLength(3)]
         public string Title { get; set; }
 
-        [Required, MaxLength(20), MinLength(5)]
+        [Required, MaxLength(50), MinLength(5)]
         public string Author { get; set; }
 
         [Required(ErrorMessage ="You must fill the language")]
-        public string Language{ get; set; }
+        public int Language{ get; set; }
 
         [Required]
         public string Category { get; set; }
-
-        [Required]
-        [DataType(DataType.DateTime)]
-        public string MyField { get; set; }
+ 
 
     }
 }
