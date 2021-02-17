@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 /BookStore/wwwroot/lib/twitter-bootstrap
 /BookStore/libman.json
+/BookStore/wwwroot/books

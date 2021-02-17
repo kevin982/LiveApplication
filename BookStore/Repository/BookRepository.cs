@@ -20,7 +20,7 @@ namespace BookStore.Repository
 
         public async Task<int> AddNewBook(BookModel bookModel)
         {
-            Book book = new() { Author = bookModel.Author, Category = bookModel.Category, Description = bookModel.Description, Pages = bookModel.Pages, Title = bookModel.Title, CreatedOn = DateTime.UtcNow, UpddatedOn = DateTime.UtcNow };
+            Book book = new() {ImageUrl = bookModel.ImageUrl ,LanguageId=bookModel.Language, Author = bookModel.Author, Category = bookModel.Category, Description = bookModel.Description, Pages = bookModel.Pages, Title = bookModel.Title, CreatedOn = DateTime.UtcNow, UpddatedOn = DateTime.UtcNow };
 
             await context.AddAsync(book);
             await context.SaveChangesAsync();
@@ -29,23 +29,26 @@ namespace BookStore.Repository
         }
 
 
-        public async Task<List<Book>> GetAllBooks()
+        public async Task<List<BookModel>> GetAllBooks()
         {
-            List<Book> result = new();
+            List<Book> result = await context.Books.AsNoTracking().ToListAsync();
 
-            result = await context.Books.AsNoTracking().ToListAsync();
+            List<BookModel> list = new();
 
-            return result;
+            foreach (var book in result)
+            {
+                list.Add(new BookModel() { Id = book.Id, Author = book.Author, Description = book.Description, ImageUrl = book.ImageUrl});
+            }
+
+            return list;
         }
 
-        public async Task<Book> GetBookById(int id)
+        public async Task<BookModel> GetBookById(int id)
         {
-            Book result;
 
-            result = await context.Books.AsNoTracking().FirstAsync(book => book.Id == id);
+            Book result = await context.Books.AsNoTracking().Include(b => b.Language).FirstAsync(book => book.Id == id);
 
-            return result;
-
+            return new BookModel() { Pages = result.Pages ,Author= result.Author, Description = result.Description, Title = result.Title, Language = result.Language.Id, LanguageName = result.Language.Name, Category = result.Category, ImageUrl = result.ImageUrl};
         }
 
 

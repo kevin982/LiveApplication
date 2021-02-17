@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -28,9 +29,16 @@ namespace BookStore.Models
         [Required(ErrorMessage ="You must fill the language")]
         public int Language{ get; set; }
 
+        public string LanguageName { get; set; } = string.Empty;
+
+
         [Required]
         public string Category { get; set; }
  
+        [Required]
+        public IFormFile Image{ get; set; }
+
+        public string ImageUrl { get; set; } = string.Empty;
 
     }
 }
