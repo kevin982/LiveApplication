@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BookStore.Data.Entities;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
 namespace BookStore.Models
 {
-    public class BookModel
+    public class BookModel : ICloneable
     {
         public int Id { get; set; }
         
@@ -40,5 +42,37 @@ namespace BookStore.Models
 
         public string ImageUrl { get; set; } = string.Empty;
 
+        [Display(Name = "Choose the gallery images of your book")]
+        [Required]
+
+        public IFormFileCollection GalleryFiles { get; set; }
+
+
+        public List<GalleryModel> Gallery { get; set; } = new();
+
+        public object Clone()
+        {
+
+            List<Gallery> images = new();
+
+            foreach (var item in Gallery)
+            {
+                images.Add((Gallery)item.Clone());
+            }
+
+
+            return new Book()
+            {
+                Id = this.Id,
+                Pages = this.Pages,
+                Title = this.Title,
+                Author = this.Author,
+                Description = this.Description,
+                LanguageId = this.Language,
+                Category = this.Category,
+                ImageUrl = this.ImageUrl,
+                Images = images
+            };
+        }
     }
 }

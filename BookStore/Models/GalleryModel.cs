@@ -1,28 +1,26 @@
-﻿using BookStore.Models;
+﻿using BookStore.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookStore.Data.Entities
+namespace BookStore.Models
 {
-    public class Language: ICloneable
+    public class GalleryModel: ICloneable
     {
         public int Id { get; set; }
 
         public string Name { get; set; } = string.Empty;
 
-        public string Description { get; set; } = string.Empty;
-
-        public List<Book> Books { get; set; }
+        public string Url { get; set; } = string.Empty;
 
         public object Clone()
         {
-            return new LanguageModel()
+            return new Gallery()
             {
                 Id = this.Id,
                 Name = this.Name,
-                Description = this.Description
+                Url = this.Url
             };
         }
     }

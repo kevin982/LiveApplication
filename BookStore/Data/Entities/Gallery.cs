@@ -6,23 +6,25 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data.Entities
 {
-    public class Language: ICloneable
+    public class Gallery: ICloneable
     {
         public int Id { get; set; }
 
         public string Name { get; set; } = string.Empty;
 
-        public string Description { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
 
-        public List<Book> Books { get; set; }
+        public Book Book { get; set; }
+
+        public int BookId { get; set; }
 
         public object Clone()
         {
-            return new LanguageModel()
+            return new GalleryModel()
             {
                 Id = this.Id,
                 Name = this.Name,
-                Description = this.Description
+                Url = this.Url
             };
         }
     }
