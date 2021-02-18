@@ -54,30 +54,36 @@ namespace BookStore.Controllers
 
             if (ModelState.IsValid)
             {
-                string folder = "books/gallery/";
+                string folder = "books/cover/";
+                bookModel.CoverImageUrl = await UploadFile(folder, bookModel.Image); //Se agrega la imagen principal
 
+                folder = "books/pdf/";
+                bookModel.BookPdfUrl = await UploadFile(folder, bookModel.BookPdf);//Se agrega el pdf
+
+
+                folder = "books/gallery/";
+                
+                //Se agregan todas las imagenes secundarias
                 foreach (var file in bookModel.GalleryFiles)
                 {
 
                     GalleryModel gallery = new()
                     {
                         Name = file.FileName,
-                        Url = await UploadImage(folder, file)
+                        Url = await UploadFile(folder, file)
                     };
 
                     bookModel.Gallery.Add(gallery);
 
                 }
 
-                bookModel.ImageUrl = await UploadImage(folder, bookModel.Image);
-
-                await _bookRepository.AddNewBook(bookModel);
+                await _bookRepository.AddNewBook(bookModel); //Se agrega el libro.
             }
 
             return View();
         }
 
-        private async Task<string> UploadImage(string folderPath, IFormFile file)
+        private async Task<string> UploadFile(string folderPath, IFormFile file)
         {
  
             folderPath += Guid.NewGuid().ToString() + "_" + file.FileName;

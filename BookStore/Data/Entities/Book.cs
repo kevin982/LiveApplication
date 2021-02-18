@@ -28,9 +28,12 @@ namespace BookStore.Data.Entities
 
         public string Category { get; set; } = string.Empty;
 
-        public string ImageUrl { get; set; } = string.Empty;
+        public string CoverImageUrl { get; set; } = string.Empty;
 
         public List<Gallery> Images { get; set; }
+
+        public string PdfUrl { get; set; } = string.Empty;
+
 
         public object Clone()
         {
@@ -52,8 +55,9 @@ namespace BookStore.Data.Entities
                 Language = this.Language.Id,
                 LanguageName = this.Language.Name,
                 Category = this.Category,
-                ImageUrl = this.ImageUrl,
-                Gallery = gallery            
+                CoverImageUrl = this.CoverImageUrl,
+                Gallery = gallery,
+                BookPdfUrl = this.PdfUrl
             };
  
         }

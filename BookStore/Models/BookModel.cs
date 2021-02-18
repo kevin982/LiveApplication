@@ -37,10 +37,11 @@ namespace BookStore.Models
         [Required]
         public string Category { get; set; }
  
+        [Display(Name = "Choose the cover image to your book")]
         [Required]
         public IFormFile Image{ get; set; }
 
-        public string ImageUrl { get; set; } = string.Empty;
+        public string CoverImageUrl { get; set; } = string.Empty;
 
         [Display(Name = "Choose the gallery images of your book")]
         [Required]
@@ -49,6 +50,14 @@ namespace BookStore.Models
 
 
         public List<GalleryModel> Gallery { get; set; } = new();
+
+        
+        [Required]
+        [Display(Name = "Upload the book in pdf format")]
+        public IFormFile BookPdf { get; set; }
+
+        public string BookPdfUrl { get; set; }
+
 
         public object Clone()
         {
@@ -70,8 +79,9 @@ namespace BookStore.Models
                 Description = this.Description,
                 LanguageId = this.Language,
                 Category = this.Category,
-                ImageUrl = this.ImageUrl,
-                Images = images
+                CoverImageUrl = this.CoverImageUrl,
+                Images = images,
+                PdfUrl = this.BookPdfUrl
             };
         }
     }

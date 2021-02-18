@@ -1,13 +1,13 @@
 @{
-    ViewData["Title"] = "Book"+" "+Model.Title;
+    ViewData["Title"] = "Book" + " " + Model.Title;
 }
- 
+
 <div class="container">
     <h3 class="display-4">Book details</h3>
     <div class="row">
         <div class="col-md-6">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-               
+
                 <div class="carousel-indicators">
 
                     @{
@@ -25,7 +25,7 @@
                     @{
                         for (int i = 0; i < Model.Gallery.Count; i++)
                         {
-                            <div class = "@(i==0?"carousel-item active":"carousel-item")">
+                            <div class="@(i==0?"carousel-item active":"carousel-item")">
                                 <img src="@Model.Gallery[i].Url" class="d-block w-100" alt="@Model.Gallery[i].Name">
                             </div>
                         }
@@ -68,9 +68,9 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <button class="btn btn-outline-primary">
+                    <a class="btn btn-primary" href="@Model.BookPdfUrl">
                         Read now
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -83,6 +83,7 @@
             </ul>
         </div>
     </div>
+ 
 
     <hr />
 
