@@ -25,59 +25,76 @@ namespace BookStore.Controllers
             _languageRepository = languageRepository;
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<ViewResult> GetAllBooks()
+        public async Task<ViewResult> GetAllBooksAsync()
         {
 
-            var data = await _bookRepository.GetAllBooks();
+            var data = await _bookRepository.GetAllBookAsync();
 
             return View(data);
         }
 
-        public async Task<ViewResult> GetBook(int id)
+        public async Task<ViewResult> GetBookAsync(int id)
         {
-            var data= await _bookRepository.GetBookById(id);
+            var data= await _bookRepository.GetBookByIdAsync(id);
             return View(data);
         }
 
-        public async Task<ViewResult> AddNewBook()
+        public async Task<ViewResult> AddNewBookAsync()
         {
-            ViewBag.Languages = await _languageRepository.GetAllLanguages();
+            ViewBag.Languages = await _languageRepository.GetAllLanguagesAsync();
 
             return View();
         }
 
         [HttpPost]
-        public async Task<ViewResult> AddNewBook(BookModel bookModel)
+        public async Task<ViewResult> AddNewBookAsync(BookModel bookModel)
         {
 
-            ViewBag.Languages = await _languageRepository.GetAllLanguages();
+            ViewBag.Languages = await _languageRepository.GetAllLanguagesAsync();
+            string folder = "";
+
 
             if (ModelState.IsValid)
             {
-                string folder = "books/cover/";
-                bookModel.CoverImageUrl = await UploadFile(folder, bookModel.Image); //Se agrega la imagen principal
 
-                folder = "books/pdf/";
-                bookModel.BookPdfUrl = await UploadFile(folder, bookModel.BookPdf);//Se agrega el pdf
+                Task.WaitAll(
 
+                    Task.Run(async ()=>{ 
 
-                folder = "books/gallery/";
+                        folder = "books/cover/";
+                        bookModel.CoverImageUrl = await UploadFile(folder, bookModel.Image); //Se agrega la imagen principal
                 
-                //Se agregan todas las imagenes secundarias
-                foreach (var file in bookModel.GalleryFiles)
-                {
+                    }),
 
-                    GalleryModel gallery = new()
-                    {
-                        Name = file.FileName,
-                        Url = await UploadFile(folder, file)
-                    };
+                    Task.Run(async () => {
 
-                    bookModel.Gallery.Add(gallery);
+                        folder = "books/pdf/";
+                        bookModel.BookPdfUrl = await UploadFile(folder, bookModel.BookPdf);//Se agrega el pdf
 
-                }
+                    }),
 
-                await _bookRepository.AddNewBook(bookModel); //Se agrega el libro.
+                    Task.Run(async () => {
+
+                        folder = "books/gallery/";
+                
+                        //Se agregan todas las imagenes secundarias
+                        foreach (var file in bookModel.GalleryFiles)
+                        {
+
+                            GalleryModel gallery = new()
+                            {
+                                Name = file.FileName,
+                                Url = await UploadFile(folder, file)
+                            };
+
+                            bookModel.Gallery.Add(gallery);
+
+                        }
+                    })
+
+                );
+ 
+                await _bookRepository.AddBookAsync(bookModel); //Se agrega el libro.
             }
 
             return View();

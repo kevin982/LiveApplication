@@ -17,8 +17,7 @@ namespace BookStore.Repository
         {
             context = _context;
         }
-
-        public async Task AddNewBook(BookModel bookModel)
+        public async Task AddBookAsync(BookModel bookModel)
         {
             Book book = (Book)bookModel.Clone();
             book.CreatedOn = DateTime.UtcNow;
@@ -29,7 +28,7 @@ namespace BookStore.Repository
         }
 
 
-        public async Task<List<BookModel>> GetAllBooks()
+        public async Task<List<BookModel>> GetAllBookAsync()
         {
             List<Book> Books = await context.Books.AsNoTracking().Include(b => b.Language).Include(b => b.Images).ToListAsync();
 
@@ -43,11 +42,25 @@ namespace BookStore.Repository
             return BooksModel;
         }
 
-        public async Task<BookModel> GetBookById(int id)
+        public async Task<BookModel> GetBookByIdAsync(int id)
         {
             Book book = await context.Books.AsNoTracking().Include(b => b.Language).Include(b => b.Images).FirstAsync(book => book.Id == id);
  
             return (BookModel) book.Clone();
+        }
+
+        public async Task<List<BookModel>> GetTopBooksAsync()
+        {
+            List<Book> Books = await context.Books.AsNoTracking().Include(b => b.Language).Include(b => b.Images).Take(5).ToListAsync();
+
+            List<BookModel> BooksModel = new();
+
+            foreach (var book in Books)
+            {
+                BooksModel.Add((BookModel)book.Clone());
+            }
+
+            return BooksModel;
         }
 
 

@@ -17,7 +17,7 @@ namespace BookStore.Repository
             context = _context;
         }
 
-        public async Task<List<LanguageModel>> GetAllLanguages()
+        public async Task<List<LanguageModel>> GetAllLanguagesAsync()
         {
             return await context.Languages.Select(x => new LanguageModel()
             {
