@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BookStore.Repository
 {
-    public class LanguageRepository
+    public class LanguageService : ILanguageService
     {
         private readonly BookStoreContext context = null;
 
-        public LanguageRepository(BookStoreContext _context)
+        public LanguageService(BookStoreContext _context)
         {
             context = _context;
         }

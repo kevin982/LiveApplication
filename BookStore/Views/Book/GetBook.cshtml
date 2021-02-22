@@ -1,5 +1,10 @@
 @{
-    ViewData["Title"] = "Book" + " " + Model.Title;
+    BookModel book = ViewBag.Book;
+    List<BookModel> relatedBooks = ViewBag.RelatedBooks;
+    
+    ViewData["Title"] = "Book" + " " + book.Title;
+
+
 }
 
 <div class="container">
@@ -11,7 +16,7 @@
                 <div class="carousel-indicators">
 
                     @{
-                        for (int i = 0; i < Model.Gallery.Count; i++)
+                        for (int i = 0; i < book.Gallery.Count; i++)
                         {
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i" class="@(i==0?"active":"")" aria-current="@(i==0?"true":"false")" aria-label="Slide 1"></button>
                         }
@@ -23,10 +28,10 @@
 
 
                     @{
-                        for (int i = 0; i < Model.Gallery.Count; i++)
+                        for (int i = 0; i < book.Gallery.Count; i++)
                         {
                             <div class="@(i==0?"carousel-item active":"carousel-item")">
-                                <img src="@Model.Gallery[i].Url" class="d-block w-100" alt="@Model.Gallery[i].Name">
+                                <img src="@book.Gallery[i].Url" class="d-block w-100" alt="@book.Gallery[i].Name">
                             </div>
                         }
                     }
@@ -47,28 +52,28 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>@Model.Title</h1>
+                    <h1>@book.Title</h1>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12 text-primary">
                     <span class="label label-primary">By: </span>
-                    <span class="monospaced">@Model.Author</span>
+                    <span class="monospaced">@book.Author</span>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
                     <p class="description">
-                        @Model.Description
+                        @book.Description
                     </p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-4">
-                    <a class="btn btn-primary" href="@Model.BookPdfUrl">
+                    <a class="btn btn-primary" href="@book.BookPdfUrl">
                         Read now
                     </a>
                 </div>
@@ -77,9 +82,9 @@
             <hr />
 
             <ul class="list-group">
-                <li class="list-group-item"><span class="font-weight-bold">Category - </span> @Model.Category</li>
-                <li class="list-group-item"><span class="font-weight-bold">Total pages - </span> @Model.Pages</li>
-                <li class="list-group-item"><span class="font-weight-bold">Language - </span> @Model.LanguageName</li>
+                <li class="list-group-item"><span class="font-weight-bold">Category - </span> @book.Category</li>
+                <li class="list-group-item"><span class="font-weight-bold">Total pages - </span> @book.Pages</li>
+                <li class="list-group-item"><span class="font-weight-bold">Language - </span> @book.LanguageName</li>
             </ul>
         </div>
     </div>
@@ -90,11 +95,11 @@
     <div class="py-5 bg-light">
         <h3 class="h3">Similar books</h3>
         <div class="row">
-            @for (int i = 0; i < 5; i++)
+            @for (int i = 0; i < relatedBooks.Count; i++)
             {
                 <div class="col-md-4">
 
-                    @{await Html.RenderPartialAsync("_bookThumbnail", new BookModel());}
+                    @{await Html.RenderPartialAsync("_bookThumbnail", relatedBooks[i]);}
 
                 </div>
              }

@@ -12,36 +12,43 @@ using System.IO;
 
 namespace BookStore.Controllers
 {
+    [Route("[controller]/[action]")]
     public class BookController : Controller
     {
 
-        private readonly BookRepository _bookRepository = null;
-        private readonly LanguageRepository _languageRepository = null;
+        private readonly IBookService _bookService = null;
+        private readonly ILanguageService _languageService = null;
         private readonly IWebHostEnvironment _webHostEnvironment = null;
 
-        public BookController(BookRepository bookRepository, LanguageRepository languageRepository, IWebHostEnvironment webHostEnvironment)
+        public BookController(IBookService bookRepository, ILanguageService languageRepository, IWebHostEnvironment webHostEnvironment)
         {
-            _bookRepository = bookRepository;
-            _languageRepository = languageRepository;
+            _bookService = bookRepository;
+            _languageService = languageRepository;
             _webHostEnvironment = webHostEnvironment;
         }
         public async Task<ViewResult> GetAllBooksAsync()
         {
 
-            var data = await _bookRepository.GetAllBookAsync();
+            var data = await _bookService.GetAllBookAsync();
 
             return View(data);
         }
 
+        [Route("~/{id:int:min(10):max(100)}")]
         public async Task<ViewResult> GetBookAsync(int id)
         {
-            var data= await _bookRepository.GetBookByIdAsync(id);
-            return View(data);
+            var book = await _bookService.GetBookByIdAsync(id);
+            var relatedBooks = await _bookService.GetRelatedBooksAsync(book.Id, book.Category, 2);
+
+            ViewBag.Book = book;
+            ViewBag.RelatedBooks = relatedBooks;
+            
+            return View();
         }
 
         public async Task<ViewResult> AddNewBookAsync()
         {
-            ViewBag.Languages = await _languageRepository.GetAllLanguagesAsync();
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
 
             return View();
         }
@@ -50,7 +57,7 @@ namespace BookStore.Controllers
         public async Task<ViewResult> AddNewBookAsync(BookModel bookModel)
         {
 
-            ViewBag.Languages = await _languageRepository.GetAllLanguagesAsync();
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
             string folder = "";
 
 
@@ -94,7 +101,7 @@ namespace BookStore.Controllers
 
                 );
  
-                await _bookRepository.AddBookAsync(bookModel); //Se agrega el libro.
+                await _bookService.AddBookAsync(bookModel); //Se agrega el libro.
             }
 
             return View();

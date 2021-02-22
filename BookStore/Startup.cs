@@ -30,8 +30,8 @@ namespace BookStore
             services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
 
-            services.AddScoped<BookRepository, BookRepository>();
-            services.AddScoped<LanguageRepository, LanguageRepository>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<ILanguageService, LanguageService>();
         
         }
 
@@ -52,7 +52,7 @@ namespace BookStore
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllers();
             });
         }
     }
