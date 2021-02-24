@@ -46,18 +46,15 @@ namespace BookStore.Controllers
             return View();
         }
 
-        public async Task<ViewResult> AddNewBookAsync()
+        public ViewResult AddNewBookAsync()
         {
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
-
             return View();
         }
 
         [HttpPost]
         public async Task<ViewResult> AddNewBookAsync(BookModel bookModel)
         {
-
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
+ 
             string folder = "";
 
 

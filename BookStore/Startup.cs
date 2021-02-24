@@ -11,18 +11,27 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Repository;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookStore
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
+        private readonly IConfiguration _fileConfiguration = null;
+
+        public Startup(IConfiguration fileConfiguration)
+        {
+            _fileConfiguration = fileConfiguration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = new ConfigurationBuilder().AddJsonFile("db.json").Build();
 
-            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(connection["ConnectionStrings:DefaultConnection"]));
+            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(_fileConfiguration.GetValue<string>("ConnectionStrings:DefaultConnection")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
+
 
             services.AddControllersWithViews();
 
@@ -50,10 +59,15 @@ namespace BookStore
 
             app.UseRouting();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+
+            app.UseAuthentication();
+
         }
     }
 }
