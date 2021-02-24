@@ -1,0 +1,121 @@
+﻿@model BookModel
+
+
+@{
+    ViewData["Title"] = "Add new book";
+
+
+
+}
+
+<div class="container">
+    <h3 class="display-4 h3">Add new book</h3>
+    <form method="post" enctype="multipart/form-data">
+
+        <div asp-validation-summary="All"></div>
+
+
+        <div class="form-group">
+
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Author" class="form-label"></label>
+            <input asp-for="Author" class="form-control" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Pages" class="form-label"></label>
+            <input asp-for="Pages" class="form-control" />
+            <span asp-validation-for="Pages" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Language" class="form-label"></label>
+            <select asp-for="Language" class="form-control">
+                @{
+                    @*foreach (var language in languages)
+                        {
+                            <option value="@language.Id">@language.Name</option>
+                        }*@
+                }
+            </select>
+            <span asp-validation-for="Language" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Category" class="form-label"></label>
+            <input asp-for="Category" class="form-control" />
+            <span asp-validation-for="Category" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Image" class="control-label"></label>
+
+            <div class="custom-file">
+                <input asp-for="Image" class="custom-file-input" id="customFile" />
+                <label class="custom-file-label" for="customFile">Choose the file</label>
+            </div>
+
+            <span asp-validation-for="Image" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="GalleryFiles" class="control-label"></label>
+
+            <div class="custom-file">
+                <input asp-for="GalleryFiles" class="custom-file-input" id="customFile" />
+                <label class="custom-file-label" for="customFile">Choose the file</label>
+            </div>
+
+            <span asp-validation-for="GalleryFiles" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="BookPdf" class="control-label"></label>
+
+            <div class="custom-file">
+                <input asp-for="BookPdf" class="custom-file-input" id="customFile" />
+                <label class="custom-file-label" for="customFile">Choose the file</label>
+            </div>
+
+            <span asp-validation-for="BookPdf" class="text-danger"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="submit" value="Add the book" class="btn btn-primary" />
+
+        </div>
+
+    </form>
+</div>
+

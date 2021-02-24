@@ -1,0 +1,109 @@
+﻿@{
+    BookModel book = ViewBag.Book;
+    List<BookModel> relatedBooks = ViewBag.RelatedBooks;
+
+    ViewData["Title"] = "Book" + " " + book.Title;
+
+
+}
+
+<div class="container">
+    <h3 class="display-4">Book details</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+
+                    @{
+                        for (int i = 0; i < book.Gallery.Count; i++)
+                        {
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@i" class="@(i==0?"active":"")" aria-current="@(i==0?"true":"false")" aria-label="Slide 1"></button>
+                        }
+                    }
+
+                </div>
+
+                <div class="carousel-inner">
+
+
+                    @{
+                        for (int i = 0; i < book.Gallery.Count; i++)
+                        {
+                            <div class="@(i==0?"carousel-item active":"carousel-item")">
+                                <img src="@book.Gallery[i].Url" class="d-block w-100" alt="@book.Gallery[i].Name">
+                            </div>
+                        }
+                    }
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>@book.Title</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-primary">
+                    <span class="label label-primary">By: </span>
+                    <span class="monospaced">@book.Author</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="description">
+                        @book.Description
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <a class="btn btn-primary" href="@book.BookPdfUrl">
+                        Read now
+                    </a>
+                </div>
+            </div>
+
+            <hr />
+
+            <ul class="list-group">
+                <li class="list-group-item"><span class="font-weight-bold">Category - </span> @book.Category</li>
+                <li class="list-group-item"><span class="font-weight-bold">Total pages - </span> @book.Pages</li>
+                <li class="list-group-item"><span class="font-weight-bold">Language - </span> @book.LanguageName</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <hr />
+
+    <div class="py-5 bg-light">
+        <h3 class="h3">Similar books</h3>
+        <div class="row">
+            @for (int i = 0; i < relatedBooks.Count; i++)
+            {
+                <div class="col-md-4">
+
+                    @{await Html.RenderPartialAsync("_bookThumbnail", relatedBooks[i]);}
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
