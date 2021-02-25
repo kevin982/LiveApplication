@@ -41,6 +41,12 @@ namespace BookStorePrueba
                 options.Password.RequiredUniqueChars = 3;
             });
 
+            //Aqui establecemos la ruta a retornar en caso de que no se haya loggeado.
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/account/signin";
+            });
+
             services.AddControllersWithViews();
 
             services.AddScoped<IBookService, BookService>();
@@ -56,19 +62,19 @@ namespace BookStorePrueba
                 app.UseDeveloperExceptionPage();
             }
             
+
+            app.UseAuthentication();
+            
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseAuthentication();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            
 
 
         }

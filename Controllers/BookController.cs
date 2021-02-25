@@ -1,5 +1,6 @@
 ﻿using BookStorePrueba.Models;
 using BookStorePrueba.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,8 @@ namespace BookStorePrueba.Controllers
             _languageService = languageRepository;
             _webHostEnvironment = webHostEnvironment;
         }
+
+        
         public async Task<ViewResult> GetAllBooksAsync()
         {
 
@@ -45,6 +48,7 @@ namespace BookStorePrueba.Controllers
             return View();
         }
 
+        [Authorize]
         public ViewResult AddNewBookAsync()
         {
             return View();
