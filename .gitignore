@@ -3,3 +3,6 @@
 ################################################################################
 
 /wwwroot/lib/twitter-bootstrap
+/.vs/BookStorePrueba/DesignTimeBuild
+/bin/Debug/net5.0
+/wwwroot/books

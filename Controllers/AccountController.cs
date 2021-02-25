@@ -14,6 +14,7 @@ namespace BookStorePrueba.Controllers
     {
 
         private readonly IAccountService _accountService = null;
+        
 
         public AccountController(IAccountService accountService)
         {
@@ -47,5 +48,41 @@ namespace BookStorePrueba.Controllers
 
             return View();
         }
+
+        public IActionResult SignIn() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(SignInUserModel signInUserModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _accountService.SignInAsync(signInUserModel);
+
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("", "Invalid credentials");
+                    return View(signInUserModel);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+            }
+
+            return View();
+
+        }
+
+        public async Task<IActionResult> SignOut()
+        {
+            await _accountService.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }

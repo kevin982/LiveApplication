@@ -33,7 +33,7 @@ namespace BookStorePrueba.Controllers
             return View(data);
         }
 
-        [Route("~/{id:int:min(10):max(100)}")]
+        [Route("~/{id:int:min(1):max(100)}")]
         public async Task<ViewResult> GetBookAsync(int id)
         {
             var book = await _bookService.GetBookByIdAsync(id);

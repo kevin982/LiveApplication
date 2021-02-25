@@ -1,4 +1,5 @@
 using BookStorePrueba.Data.Context;
+using BookStorePrueba.Models.Tables;
 using BookStorePrueba.Services.Classes;
 using BookStorePrueba.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -30,8 +31,15 @@ namespace BookStorePrueba
         {
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetValue<string>("ConnectionStrings:DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
+            services.AddIdentity<UserTable, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 
+            //Aqui cambiamos algunas cosas del criterio que tiene Identity con los passwords.
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequiredUniqueChars = 3;
+            });
 
             services.AddControllersWithViews();
 

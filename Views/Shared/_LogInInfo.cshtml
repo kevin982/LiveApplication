@@ -1,0 +1,23 @@
+﻿
+@using BookStorePrueba.Models.Tables
+@inject Microsoft.AspNetCore.Identity.SignInManager<UserTable> _signInManager
+
+@if (_signInManager.IsSignedIn(User))
+{
+<li class="nav-item">
+    <div class="container-fluid">
+        <span class="navbar-text">
+            @User.Identity.Name
+            <a class="btn btn-primary" asp-controller="Account" asp-action="SignOut">LogOut</a>
+        </span>
+    </div>
+   
+</li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="btn btn-outline-primary" asp-controller="Account" asp-action="SignIn">Login</a>
+        <a class="btn btn-primary" asp-controller="Account" asp-action="SignUp">Register</a>
+    </li>
+}

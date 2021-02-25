@@ -10,5 +10,9 @@ namespace BookStorePrueba.Services.Interfaces
     public interface IAccountService
     {
         Task<IdentityResult> CreateUserAsync(SignUpUserModel userModel);
+
+        Task<SignInResult> SignInAsync(SignInUserModel signInUserModel);
+
+        Task SignOutAsync();
     }
 }
