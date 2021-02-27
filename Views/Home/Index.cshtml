@@ -1,5 +1,10 @@
-﻿@{
+﻿@using BookStorePrueba.Models.Tables 
+
+
+@{
     ViewData["Title"] = "Home";
+
+
 }
 
 <section class="jumbotron text-center">
@@ -7,6 +12,7 @@
     <div class="container">
 
         <h1 class="h1">Welcome to Bookstore</h1>
+        <h5 class="h5">@(ViewBag.IsAuthenticated?ViewBag.Id: "Unknow")</h5>
 
         <p class="lead text-muted">
 

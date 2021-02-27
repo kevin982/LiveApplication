@@ -7,8 +7,9 @@
 <li class="nav-item">
     <div class="container-fluid">
         <span class="navbar-text">
-            @User.Identity.Name
+            Hello @User.FindFirst("UserFirstName").Value @User.FindFirst("UserLastName").Value
             <a class="btn btn-primary" asp-controller="Account" asp-action="SignOut">LogOut</a>
+            <a class="btn btn-primary" asp-controller="Account" asp-action="ChangePassword">ChangePassword</a>
         </span>
     </div>
    

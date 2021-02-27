@@ -1,3 +1,4 @@
+using BookStorePrueba.Claims;
 using BookStorePrueba.Data.Context;
 using BookStorePrueba.Models.Tables;
 using BookStorePrueba.Services.Classes;
@@ -52,6 +53,8 @@ namespace BookStorePrueba
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IUserClaimsPrincipalFactory<UserTable>, ApplicationUserClaimsPrincipalFactory>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

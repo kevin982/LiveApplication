@@ -83,6 +83,25 @@ namespace BookStorePrueba.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<IActionResult> ChangePassword()
+        {
+            ViewBag.Succeded= null;
+            ViewBag.Errors = null;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel changePassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _accountService.ChangePasswordAsync(changePassword);
+                ViewBag.Succeded = result.Succeeded;
+                ViewBag.Errors = result.Errors;
+            }
+
+            return View();
+        }
 
     }
 }

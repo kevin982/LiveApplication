@@ -14,5 +14,7 @@ namespace BookStorePrueba.Services.Interfaces
         Task<SignInResult> SignInAsync(SignInUserModel signInUserModel);
 
         Task SignOutAsync();
+
+        Task<IdentityResult> ChangePasswordAsync(ChangePasswordModel model);
     }
 }

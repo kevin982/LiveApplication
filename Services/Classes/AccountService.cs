@@ -14,11 +14,13 @@ namespace BookStorePrueba.Services.Classes
 
         private readonly UserManager<UserTable> _userManager = null;
         private readonly SignInManager<UserTable> _signInManager = null;
+        private readonly IUserService _userService = null;
 
-        public AccountService(UserManager<UserTable> userManager, SignInManager<UserTable> signInManager)
+        public AccountService(UserManager<UserTable> userManager, SignInManager<UserTable> signInManager, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
         }
 
         public async Task<IdentityResult> CreateUserAsync(SignUpUserModel userModel)
@@ -47,6 +49,14 @@ namespace BookStorePrueba.Services.Classes
         public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(ChangePasswordModel model)
+        { 
+   
+            var userId = _userService.GetUserId(); //We get the user Id.
+            var user = await _userManager.FindByIdAsync(userId); //We get all the information about the user.
+            return await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);//We change the password
         }
 
     }
