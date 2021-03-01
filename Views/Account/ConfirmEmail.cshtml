@@ -1,0 +1,30 @@
+﻿@{ 
+    ViewData["Title"] = "ConfirmEmail";
+}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-md-4">
+
+            @{ if (ViewBag.Errors.Count == 0)
+                {
+                    <div class="alert alert-success" role="alert">
+                        <p class="p-1">Your email has been verified successfully</p>
+                    </div>
+                }
+                else
+                {
+
+                    <div class="alert alert-success" role="alert">
+                        @foreach (var error in ViewBag.Errors)
+                        {
+                            <p>@error</p>
+                        }
+                    </div>
+
+                }
+            }
+
+        </div>
+    </div>
+</div>

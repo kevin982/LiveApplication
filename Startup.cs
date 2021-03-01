@@ -32,20 +32,34 @@ namespace BookStorePrueba
         {
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetValue<string>("ConnectionStrings:DefaultConnection")));
 
-            services.AddIdentity<UserTable, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
+            services.AddIdentity<UserTable, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>().AddDefaultTokenProviders();
 
-            //Aqui cambiamos algunas cosas del criterio que tiene Identity con los passwords.
+      
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 5;
-                options.Password.RequiredUniqueChars = 3;
+                options.Password.RequiredLength = 3;
+                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+
+
+                options.SignIn.RequireConfirmedEmail = true;
+                
+                options.Lockout.MaxFailedAccessAttempts = 3;
+
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
             });
 
             //Aqui establecemos la ruta a retornar en caso de que no se haya loggeado.
             services.ConfigureApplicationCookie(config =>
             {
                 config.LoginPath = "/account/signin";
+            });
+
+            services.Configure<DataProtectionTokenProviderOptions>(options =>
+            {
+                options.TokenLifespan = TimeSpan.FromHours(1);
             });
 
             services.AddControllersWithViews();
@@ -55,6 +69,7 @@ namespace BookStorePrueba
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IUserClaimsPrincipalFactory<UserTable>, ApplicationUserClaimsPrincipalFactory>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

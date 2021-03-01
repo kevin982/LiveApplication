@@ -160,3 +160,6 @@ C:\Users\admin\Desktop\BookStorePrueba\bin\Debug\net5.0\runtimes\win-arm64\lib\n
 C:\Users\admin\Desktop\BookStorePrueba\obj\Debug\net5.0\Razor\Views\Account\SignIn.cshtml.g.cs
 C:\Users\admin\Desktop\BookStorePrueba\obj\Debug\net5.0\Razor\Views\Shared\_LogInInfo.cshtml.g.cs
 C:\Users\admin\Desktop\BookStorePrueba\obj\Debug\net5.0\Razor\Views\Account\ChangePassword.cshtml.g.cs
+C:\Users\admin\Desktop\BookStorePrueba\obj\Debug\net5.0\Razor\Views\Account\ConfirmEmail.cshtml.g.cs
+C:\Users\admin\Desktop\BookStorePrueba\obj\Debug\net5.0\Razor\Views\Account\ForgotPassword.cshtml.g.cs
+C:\Users\admin\Desktop\BookStorePrueba\obj\Debug\net5.0\Razor\Views\Account\ResetPassword.cshtml.g.cs
